@@ -3,7 +3,7 @@ import logging
 import time
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any, NewType, TypedDict, Union
 
 from sqlalchemy import select
@@ -92,6 +92,13 @@ _INVOKE_FROM_TO_HITL_SURFACE: Mapping[InvokeFrom, HumanInputSurface] = {
 
 NodeExecutionId = NewType("NodeExecutionId", str)
 logger = logging.getLogger(__name__)
+
+
+def _to_utc_timestamp(value: datetime) -> int:
+    """Convert persisted UTC datetimes to epoch seconds without using the host timezone."""
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=UTC)
+    return int(value.timestamp())
 
 
 class AccountCreatedByDict(TypedDict):
@@ -371,7 +378,7 @@ class WorkflowResponseConverter:
             pause_reasons,
             dispositions_by_form_id=dispositions_by_form_id,
             expiration_times_by_form_id={
-                form_id: int(expiration_time.timestamp())
+                form_id: _to_utc_timestamp(expiration_time)
                 for form_id, expiration_time in expiration_times_by_form_id.items()
             },
         )
@@ -399,7 +406,7 @@ class WorkflowResponseConverter:
                             form_token=disposition.form_token if disposition else None,
                             approval_channels=list(disposition.approval_channels) if disposition else [],
                             resolved_default_values=reason.resolved_default_values,
-                            expiration_time=int(expiration_time.timestamp()),
+                            expiration_time=_to_utc_timestamp(expiration_time),
                         ),
                     )
                 )
