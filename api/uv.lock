@@ -1699,7 +1699,7 @@ dev = [
     { name = "types-jmespath", specifier = ">=1.0.2.20240106" },
     { name = "types-jsonschema", specifier = "~=4.23.0" },
     { name = "types-markdown", specifier = "~=3.7.0" },
-    { name = "types-oauthlib", specifier = "~=3.2.0" },
+    { name = "types-oauthlib", specifier = "~=3.3.0" },
     { name = "types-objgraph", specifier = "~=3.6.0" },
     { name = "types-olefile", specifier = "~=0.47.0" },
     { name = "types-openpyxl", specifier = "~=3.1.5" },
@@ -6430,11 +6430,11 @@ wheels = [
 
 [[package]]
 name = "types-oauthlib"
-version = "3.2.0.20250516"
+version = "3.3.0.20260724"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/b1/2c/dba2c193ccff2d1e2835589d4075b230d5627b9db363e9c8de153261d6ec/types_oauthlib-3.2.0.20250516.tar.gz", hash = "sha256:56bf2cffdb8443ae718d4e83008e3fbd5f861230b4774e6d7799527758119d9a", size = 24683, upload-time = "2025-05-16T03:07:42.484Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9e/ed/72823bc9c60e8f5354827eec6b85aa1baec94b3ca6c62f8e104c3717c31b/types_oauthlib-3.3.0.20260724.tar.gz", hash = "sha256:00c7dab6a2f764e991180bff4bdb1ba8bddb1d546013b1c81f903192c30f2386", size = 26194, upload-time = "2026-07-24T04:58:57.564Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b8/54/cdd62283338616fd2448f534b29110d79a42aaabffaf5f45e7aed365a366/types_oauthlib-3.2.0.20250516-py3-none-any.whl", hash = "sha256:5799235528bc9bd262827149a1633ff55ae6e5a5f5f151f4dae74359783a31b3", size = 45671, upload-time = "2025-05-16T03:07:41.268Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/e8/96d1e19015c1384022a296a2e73d7843739ccc2f13afcaed5c2f797c86e4/types_oauthlib-3.3.0.20260724-py3-none-any.whl", hash = "sha256:73bc776c00ed00957bc1422a3a53696d8aa18f24c47a628e08566c0d4e0a6bbd", size = 48967, upload-time = "2026-07-24T04:58:56.634Z" },
 ]
 
 [[package]]
