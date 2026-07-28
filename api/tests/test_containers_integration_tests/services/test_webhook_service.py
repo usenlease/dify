@@ -42,6 +42,10 @@ def test_data(
         "services.account_service.FeatureService.get_system_features",
         lambda **_: system_features,
     )
+    monkeypatch.setattr(
+        "services.account_service.FeatureService.is_workspace_creation_allowed",
+        lambda: True,
+    )
     account = AccountService.create_account(
         email=fake.email(),
         name=fake.name(),

@@ -6,6 +6,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from flask import Flask
 from sqlalchemy.engine import Engine
+from sqlalchemy.orm import Session
 from werkzeug.datastructures import FileStorage
 
 import services.trigger.webhook_service as webhook_service_module
@@ -25,7 +26,7 @@ def flask_sqlite_engine() -> Iterator[Engine]:
 
 
 class TestWebhookServiceUnit:
-    """Unit tests for WebhookService using isolated SQLite sessions for database boundaries."""
+    """Webhook business-logic tests using isolated SQLite sessions for database boundaries."""
 
     def test_trigger_workflow_execution_propagates_quota_error_without_error_log(
         self, flask_sqlite_engine: Engine, caplog: pytest.LogCaptureFixture
@@ -50,7 +51,7 @@ class TestWebhookServiceUnit:
             patch(
                 "services.trigger.webhook_service.AsyncWorkflowService.trigger_workflow_async",
                 side_effect=quota_error,
-            ),
+            ) as mock_trigger_workflow_async,
         ):
             with pytest.raises(QuotaExceededError) as exc_info:
                 WebhookService.trigger_workflow_execution(
@@ -61,6 +62,9 @@ class TestWebhookServiceUnit:
 
         assert exc_info.value is quota_error
         quota_charge.refund.assert_called_once_with()
+        session = mock_trigger_workflow_async.call_args.kwargs["session"]
+        assert isinstance(session, Session)
+        assert session.in_transaction() is False
 
         # Verify logs using caplog instead of mock_log
         assert len(caplog.records) == 1
