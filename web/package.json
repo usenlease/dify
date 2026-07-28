@@ -73,7 +73,7 @@
     "@octokit/request-error": "6.1.8",
     "@orpc/client": "1.13.4",
     "@orpc/contract": "1.13.4",
-    "@orpc/openapi-client": "1.13.4",
+    "@orpc/openapi-client": "1.14.12",
     "@orpc/tanstack-query": "1.13.4",
     "@remixicon/react": "4.7.0",
     "@sentry/react": "8.55.0",
